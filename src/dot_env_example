@@ -1,0 +1,4 @@
+SECRET_KEY=this is secret key
+SSL=false
+PORT=3000
+STATIC_SALT_CSRF=some salt
