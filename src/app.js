@@ -103,10 +103,10 @@ app.get("/", (req, res) => {
 });
 
 // Endpoint cek cookie
-app.get("/check-cookies", verifyJwtToken, (req, res) => {
-	res.send({
-		username: req.user.username,
-	});
+app.post("/api/v1/check-cookies", verifyJwtToken, (req, res) => {
+    res.send({
+        username: req.user.username,
+    });
 });
 
 // Endpoint login
