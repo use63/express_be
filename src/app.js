@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import { setCookie } from "./utils/index.js";
 import { logger, validateRegistration } from "./middleware/index.js";
 import CryptoJS from "crypto-js";
+import { UserModel } from "./models/index.js";
 
 // Konfigurasi dotenv
 dotenv.config();
@@ -129,14 +130,25 @@ app.post("/api/v1/login", (req, res) => {
 	}
 });
 
-
-
 // Endpoint register
-app.post("/api/v1/register", validateRegistration, (req, res) => {
+app.post("/api/v1/register", validateRegistration, async (req, res) => {
 
     // Mengambil username dan password
-    const { username, password } = req.body;
-    res.send(req.body);
+    const { email, password } = req.body;
+
+    UserModel.sync();
+    
+    try {
+        const user = await UserModel.create({
+            email: email,
+            password: password
+        })
+        // Mengembalikan respons
+        res.send({ message: "Registration success", user: user });
+    } catch (err) {
+        // Jika username sudah ada
+        res.status(400).send({ message: "Email already registered.", error: true });
+    }
 })
 
 // Endpoint logout
@@ -165,6 +177,7 @@ app.post("/api/v1/logout", (req, res) => {
 
 app.post("/api/v1/logger", (req, res) => {
     console.log("\n" + JSON.parse(req.body.log).date);
+    console.log(req.body.log);
     res.send("success write log");
 }); 
 

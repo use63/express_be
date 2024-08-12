@@ -1,8 +1,7 @@
 import { body, validationResult } from "express-validator";
 
-
 const validateRegistration = [
-	body("username")
+	body("email")
 		.trim()
 		.isEmail()
 		.withMessage("Username harus berupa email yang valid.")
