@@ -17,8 +17,8 @@
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
+    "mariadb": "^3.3.1",
     "morgan": "^1.10.0",
-    "sequelize": "^6.37.3",
-    "sqlite3": "^5.1.7"
+    "sequelize": "^6.37.3"
   }
 }
