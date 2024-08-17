@@ -113,10 +113,10 @@ app.post("/api/v1/check-cookies", verifyJwtToken, (req, res) => {
 // Endpoint login
 app.post("/api/v1/login", (req, res) => {
     // Mengambil username dan password
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     
     // Cek apakah username dan password valid
-    if (username === "a" && password === "a*") {
+    if (email === "a" && password === "a*") {
         const token_jwt = generateJwtToken(username);
 
         // Mengatur cookie
