@@ -17,7 +17,13 @@ const validateRegistration = [
 	(req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.status(400).json({ errors: errors.array() });
+			// Menghapus properti value dari setiap error
+			const sanitizedErrors = errors.array().map(({ msg, param, location }) => ({
+					msg,
+					param,
+					location,
+				}));
+			return res.status(400).json({ errors: sanitizedErrors });
 		}
 		next();
 	},
