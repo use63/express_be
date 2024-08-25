@@ -1,3 +1,6 @@
+import jwt from "jsonwebtoken";
+import { SECRET_KEY } from "../config/config.js";
+
 const verifyJwtToken = (req, res, next) => {
 	// Mengambil cookie
 	const token_a = req.cookies.token_jwt_base64_a;
@@ -5,7 +8,7 @@ const verifyJwtToken = (req, res, next) => {
 
 	// Cek apakah token ada
 	if (!token_a || !token_b) {
-		return res.status(401).send({ message: "No token provided" });
+		return res.status(401).send({ message: "no login found" });
 	}
 
 	// Verifikasi token JWT
@@ -20,7 +23,7 @@ const verifyJwtToken = (req, res, next) => {
 		next();
 	} catch (err) {
 		// Jika token tidak valid
-		res.status(401).send({ message: "Invalid token" });
+		res.status(401).send({ message: "Invalid Access, please login again" });
 	}
 };
 
