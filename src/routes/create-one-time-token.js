@@ -2,7 +2,6 @@ import { STATIC_SALT_CSRF } from "../config/config.js";
 import CryptoJS from "crypto-js";
 import { ottModel } from "../models/index.js";
 import { dbman } from "../utils/index.js";
-import db from "../utils/dbUtils.js";
 
 const createOneTimeToken = (req, res) => {
 	const key = req.body.key;

@@ -25,9 +25,9 @@ const destroy = async (model, data) => {
 	}
 };
 
-const read = async (model) => {
+const read = async (model, where) => {
 	try {
-		const newData = await model.findAll();
+		const newData = await model.findAll(where);
 		return newData;
 	} catch (error) {
 		console.error(error);

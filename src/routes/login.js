@@ -1,6 +1,9 @@
 import jwt from "jsonwebtoken";
 import { SECRET_KEY, SSL } from "../config/config.js";
 import { setCookie } from "../utils/index.js";
+import { ottModel, UserModel } from "../models/index.js";
+import { dbman } from "../utils/index.js";
+
 // Fungsi untuk menghasilkan token JWT
 const generateJwtToken = (email) => {
 	return jwt.sign({ email }, SECRET_KEY, {
@@ -33,11 +36,17 @@ const setJwtCookies = (res, token) => {
 	]);
 };
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
 	// Mengambil email dan password
 	const { email, password, key_ott, hash_ott } = req.body;
 
 	console.log(email, password, key_ott, hash_ott);
+
+	const ott_data = await dbman.read(ottModel, { where: { key: key_ott } });
+	const key_ott_db = ott_data[0].key;
+	const hash_ott_db = ott_data[0].hash;
+
+	console.log(ott_data, user_data[0]);
 
 	// Cek apakah email dan password valid
 	if (email === "suratonline95@gmail.com" && password === "123") {
