@@ -1,9 +1,11 @@
 // Mengimport modul yang dibutuhkan
 import express from "express";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import { logger, validateRegistration, verifyJwtToken } from "./middleware/index.js";
 import { post, get } from "./routes/index.js";
 import { HOST, PORT } from "./config/config.js"
+import { db } from "./utils/index.js";
 
 
 // Inisialisasi express
@@ -15,8 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(logger(`http://${HOST}:${PORT}`));
+app.use(cors({
+    origin: 'http://localhost:8080',
+}))
 
 
+// sync database
+app.get("/sync", (req, res) => {
+    db.sync()
+    res.send("success")
+});
 // Halaman utama
 app.get("/", get.home);
 // Endpoint cek cookie

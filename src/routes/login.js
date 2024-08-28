@@ -35,10 +35,12 @@ const setJwtCookies = (res, token) => {
 
 const login = (req, res, next) => {
 	// Mengambil email dan password
-	const { email, password } = req.body;
+	const { email, password, key_ott, hash_ott } = req.body;
+
+	console.log(email, password, key_ott, hash_ott);
 
 	// Cek apakah email dan password valid
-	if (email === "a" && password === "a*") {
+	if (email === "suratonline95@gmail.com" && password === "123") {
 		const token_jwt = generateJwtToken(email);
 
 		// Mengatur cookie
@@ -46,9 +48,11 @@ const login = (req, res, next) => {
 
 		// Mengembalikan respons
 		res.send({ message: "Login success" });
+		console.info("Login success");
 	} else {
 		// Jika email dan password tidak valid
 		res.status(401).send({ message: "Invalid credentials", error: true });
+		console.info("Login failed");
     }
 
     next();

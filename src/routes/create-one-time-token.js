@@ -1,8 +1,15 @@
 import { STATIC_SALT_CSRF } from "../config/config.js";
 import CryptoJS from "crypto-js";
+import { ottModel } from "../models/index.js";
+import { dbman } from "../utils/index.js";
+import db from "../utils/dbUtils.js";
 
 const createOneTimeToken = (req, res) => {
 	const key = req.body.key;
+
+	if (!key) {
+		return res.status(400).send({ error: "Key is required" });
+	}
 
 	const createOneTimeToken = (key, STATIC_SALT_CSRF) => {
 		const key_0 = key + Date.now();
@@ -13,7 +20,7 @@ const createOneTimeToken = (req, res) => {
 	};
 
 	const addKeyAndTokenToDatabase = async (key, hash) => {
-		// Menambahkan key dan token ke database
+		console.log(await dbman.add(ottModel, { key: key, hash: hash }))
 	};
 
 	const hash = createOneTimeToken(key, STATIC_SALT_CSRF);

@@ -1,25 +1,22 @@
 import { db } from "../utils/index.js";
 import { DataTypes } from "sequelize";
 
-const User = db.define("users", {
+// model one time token
+
+const Ott = db.define("otts", {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    username: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    password: {
+    key: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    email: {
+    hash: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
+        allowNull: false
+    }
 });
 
-export default User;
+export default Ott;

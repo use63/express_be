@@ -1,7 +1,9 @@
 import setCookie from "./setcookieUtils.js";
-import dbUtils from "./dbUtils.js";
+import db from "./dbUtils.js";
+import dbman from "./dbmanUtils.js";
 
 export {
     setCookie,
-    dbUtils
+    db,
+    dbman
 }
